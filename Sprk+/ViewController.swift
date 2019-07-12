@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         mapView.showsUserLocation = true
         locationManager.startUpdatingLocation()
-        locationManager.delegate = self
+        locationManager.delegate = self as! CLLocationManagerDelegate
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
