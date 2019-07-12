@@ -12,7 +12,7 @@ import CoreLocation
 
 class ViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
-    
+
     var region = MKCoordinateRegion()
     let locationManager = CLLocationManager()
     var mapItems = [MKMapItem]()
@@ -22,9 +22,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         locationManager.requestWhenInUseAuthorization()
         mapView.showsUserLocation = true
-        locationManager.delegate = self
         locationManager.startUpdatingLocation()
-        mapView.delegate = self
+        locationManager.delegate = self
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -75,7 +74,7 @@ class ViewController: UIViewController {
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? LocationDetailsViewController {
+        if let destination = segue.destination as? DestinationDetailsViewController {
             destination.selectedMapItem = selectedMapItem
         }
     }
