@@ -9,7 +9,7 @@
 import UIKit
 
 class InitialViewController: UIViewController {
-    @IBOutlet weak var foodTypeTextField: UITextField!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
