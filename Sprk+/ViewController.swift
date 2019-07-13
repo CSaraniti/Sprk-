@@ -9,14 +9,18 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CDYelpFusionKit
 
 class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
-
+    
+    
+    
     var region = MKCoordinateRegion()
     let locationManager = CLLocationManager()
     var mapItems = [MKMapItem]()
     var selectedMapItem = MKMapItem()
+    var yelpAPIClient = CDYelpAPIClient(apiKey: "Eyyj7cp9X622nkhFQvhJiJRP_h26M-JANYmm87SIWYsr-uKJG8hDxsxGKksxTE3s0GZW209md3OhFQ372NbV4ERuq-C1THUSys_9TipBBLERLWybn59t2Ggt00UqXXYx")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +29,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
         mapView.delegate = self
+        
     }
+    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.first!
@@ -36,6 +42,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
     
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        // search using Apple Map
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = "pizza"
         request.region = region
@@ -45,13 +52,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                 for mapItem in response.mapItems {
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = mapItem.placemark.coordinate
-                    annotation.title = mapItem.name
+                    annotation.title = mapItem.name! + "Apple Map"
                     self.mapView.addAnnotation(annotation)
                     self.mapItems.append(mapItem)
                 }
             }
         }
+        
+        // search using Yelp API
+        yelpAPIClient.searchBusinesses(byTerm: "pizza", location: nil, latitude: 42.0557, longitude: -87.6743, radius: nil, categories: nil, locale: nil, limit: nil, offset: nil, sortBy: nil, priceTiers: nil, openNow: nil, openAt: nil, attributes: nil) { (response) in
+            if let response = response,
+                let businesses = response.businesses,
+                businesses.count > 0 {
+                print(businesses)
+                for item in businesses{
+                    _ = MKPointAnnotation()
+                    let latitude = item.coordinates?.latitude
+                    let longitude = item.coordinates?.longitude
+                    let coordinate = CLLocationCoordinate2D (latitude: latitude!, longitude: longitude!)
+                    let mPlacemark = MKPlacemark(coordinate: coordinate)
+                    let mItem = MKMapItem(placemark: mPlacemark)
+                    let annotation2 = MKPointAnnotation()
+                    annotation2.coordinate = mItem.placemark.coordinate
+                    annotation2.title = item.name! + "Yelp"
+                    self.mapView.addAnnotation(annotation2)
+                    self.mapItems.append(mItem)
+                }
+            }
+        }
     }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
