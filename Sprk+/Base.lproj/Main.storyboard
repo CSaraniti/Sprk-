@@ -77,10 +77,10 @@
             </objects>
             <point key="canvasLocation" x="1042.0289855072465" y="132.58928571428572"/>
         </scene>
-        <!--View Controller-->
+        <!--Destination Details View Controller-->
         <scene sceneID="fId-k9-1KV">
             <objects>
-                <viewController id="tRv-ld-lQ5" sceneMemberID="viewController">
+                <viewController id="tRv-ld-lQ5" customClass="DestinationDetailsViewController" customModule="Sprk_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y2v-EF-yWP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -24,6 +24,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         mapView.showsUserLocation = true
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
+        mapView.delegate = self
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -36,7 +37,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = ""
+        request.naturalLanguageQuery = "pizza"
         request.region = region
         let search = MKLocalSearch(request: request)
         search.start { (response, error) in
