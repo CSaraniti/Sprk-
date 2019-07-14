@@ -11,12 +11,13 @@ import MapKit
 
 class DestinationDetailsViewController: UIViewController {
     
-    var infoDictionary = [String: Any]()
+    var infoDictionary = [String: Any]()    //  collection of info of a location
     var mapItem = MKMapItem()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         for (category, value) in infoDictionary {
-            print (category, ": ", value)   // have fun use it in storyboard
+            print (category, ": ", value)   //  have fun using it in storyboard
         }
         print ("")
     }
