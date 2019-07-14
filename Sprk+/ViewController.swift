@@ -10,13 +10,13 @@ import UIKit
 import MapKit
 import CoreLocation
 import CDYelpFusionKit  //import Yelp API Client
+import Foundation
 
 class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     var region = MKCoordinateRegion()
     let locationManager = CLLocationManager()
-//    var mapItems = [MKMapItem]()
     var selectedMapItem = MKMapItem()
     var yelpAPIClient = CDYelpAPIClient(apiKey: "Eyyj7cp9X622nkhFQvhJiJRP_h26M-JANYmm87SIWYsr-uKJG8hDxsxGKksxTE3s0GZW209md3OhFQ372NbV4ERuq-C1THUSys_9TipBBLERLWybn59t2Ggt00UqXXYx")
     var keyWord = ""
@@ -42,31 +42,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         
         
-        keyWord = "pizza"   //entry for searching with keywords
+        keyWord = "dinner"   //entry for searching with keywords. Work for both name and some categories. "restaurant", "pizza", "breakfast", "mcdonald", etc.
         
-        
-        // search using Apple Map
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = keyWord
-        request.region = region
-        let search = MKLocalSearch(request: request)
-        search.start { (response, error) in
-            if let response = response {
-                for mapItem in response.mapItems {
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = mapItem.placemark.coordinate
-                    annotation.title = "Apple Map-" + mapItem.name!
-                    self.mapView.addAnnotation(annotation)
-//                    self.mapItems.append(mapItem)
-                    var infoDictionary = [String: Any]()    //  to collect data for each MKMapItem / annotation
-                    infoDictionary["name"] = mapItem.name
-                    infoDictionary["phoneNumber"] = mapItem.phoneNumber
-                    infoDictionary["address"] = mapItem.placemark.subThoroughfare! + " " + mapItem.placemark.thoroughfare! + "\n" + mapItem.placemark.locality! + ", " + mapItem.placemark.administrativeArea! + " " + mapItem.placemark.postalCode!
-                    infoDictionary["url"] = mapItem.url
-                    self.mapInfo[mapItem] = infoDictionary
-                }
-            }
-        }
         
         // search using Yelp API
         yelpAPIClient.searchBusinesses(byTerm: keyWord, location: nil, latitude: 42.0557, longitude: -87.6743, radius: nil, categories: nil, locale: nil, limit: nil, offset: nil, sortBy: nil, priceTiers: nil, openNow: nil, openAt: nil, attributes: nil) { (response) in
@@ -81,10 +58,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                     let mapItem = MKMapItem(placemark: mPlacemark)
                     let annotation2 = MKPointAnnotation()
                     annotation2.coordinate = mapItem.placemark.coordinate
-                    annotation2.title = "Yelp-" + item.name!
+                    annotation2.title = item.name!
                     self.mapView.addAnnotation(annotation2)
-//                    self.mapItems.append(mapItem)
                     var infoDictionary = [String: Any]()
+                    infoDictionary["coordinate"] = annotation2.coordinate
                     infoDictionary["name"] = item.name
                     infoDictionary["phoneNumber"] = item.phone
                     infoDictionary["rating"] = item.rating
@@ -95,10 +72,56 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                     infoDictionary["isClosed"] = item.isClosed
                     infoDictionary["distance"] = item.distance
                     infoDictionary["category"] = item.categories
+                    infoDictionary["isFromYelp"] = true
                     self.mapInfo[mapItem] = infoDictionary
                 }
             }
         }
+        
+
+        // search using Apple Map
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = keyWord
+        request.region = region
+        let search = MKLocalSearch(request: request)
+        search.start { (response, error) in
+            if let response = response {
+                for mapItem in response.mapItems {
+                    let coordinate = mapItem.placemark.coordinate
+                    var isIdentical = false
+                    // algorithm to filter out duplicated results of Apple Map and Yelp
+                    for value in self.mapInfo.values {
+                        if value["isFromYelp"] as! Bool == true {
+                            if (value["name"] as! String).prefix(5).lowercased() == mapItem.name?.prefix(5).lowercased() {
+                                if self.calcDistance(coordinate0: value["coordinate"] as! CLLocationCoordinate2D, coordinate1: coordinate) < 1000.0 {   // 30.0 is enough for most cases.
+                                    isIdentical = true
+                                    print (value["name"]!)
+                                    print (mapItem.name!)
+                                }
+                            }
+                        }
+                    }
+                    if isIdentical == true{
+                        continue
+                    }
+                    let annotation = MKPointAnnotation()
+                    var infoDictionary = [String: Any]()    //  to collect data for each MKMapItem / annotation
+                    infoDictionary["coordinate"] = coordinate
+                    infoDictionary["name"] = mapItem.name
+                    annotation.coordinate = coordinate
+                    annotation.title = mapItem.name!
+                    self.mapView.addAnnotation(annotation)
+                    infoDictionary["phoneNumber"] = mapItem.phoneNumber
+                    infoDictionary["address"] = mapItem.placemark.subThoroughfare! + " " + mapItem.placemark.thoroughfare! + "\n" + mapItem.placemark.locality! + ", " + mapItem.placemark.administrativeArea! + " " + mapItem.placemark.postalCode!
+                    infoDictionary["url"] = mapItem.url
+                    infoDictionary["isFromYelp"] = false
+
+                    self.mapInfo[mapItem] = infoDictionary
+                }
+            }
+        }
+        
+        
         
         //  autocomplete suggestions for searching keywords and categories, to be finished
         yelpAPIClient.autocompleteBusinesses(byText: "pizza", latitude: 42.0557, longitude: -87.6743, locale: nil) { (response) in
@@ -110,6 +133,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                 }
             }
         }
+    }
+    
+    // to calculate distance between two coordinates
+    func calcDistance(coordinate0: CLLocationCoordinate2D,coordinate1: CLLocationCoordinate2D) -> Double {
+        let location0 = CLLocation(latitude: coordinate0.latitude, longitude: coordinate0.longitude)
+        let location1 = CLLocation(latitude: coordinate1.latitude, longitude: coordinate1.longitude)
+        let distanceInMeters = location0.distance(from: location1)
+        print (distanceInMeters)
+        return distanceInMeters
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -128,11 +160,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//        for mapItem in mapItems {
-//            if mapItem.placemark.coordinate.latitude == view.annotation?.coordinate.latitude && mapItem.placemark.coordinate.longitude == view.annotation?.coordinate.longitude {
-//                selectedMapItem = mapItem
-//            }
-//        }
         for mapItem in mapInfo.keys {
             if mapItem.placemark.coordinate.latitude == view.annotation?.coordinate.latitude && mapItem.placemark.coordinate.longitude == view.annotation?.coordinate.longitude {
                 selectedMapItem = mapItem
@@ -142,7 +169,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? DestinationDetailsViewController {
-//            destination.selectedMapItem = selectedMapItem
             var infoDictionary = [String: Any]()
             infoDictionary = mapInfo[selectedMapItem]!
             destination.infoDictionary = infoDictionary
