@@ -14,13 +14,12 @@ import CDYelpFusionKit
 class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
-    
-    
     var region = MKCoordinateRegion()
     let locationManager = CLLocationManager()
     var mapItems = [MKMapItem]()
     var selectedMapItem = MKMapItem()
     var yelpAPIClient = CDYelpAPIClient(apiKey: "Eyyj7cp9X622nkhFQvhJiJRP_h26M-JANYmm87SIWYsr-uKJG8hDxsxGKksxTE3s0GZW209md3OhFQ372NbV4ERuq-C1THUSys_9TipBBLERLWybn59t2Ggt00UqXXYx")
+    var keyWord = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,9 +41,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
     
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        
+        keyWord = "pizza"   //entry for searching with key words
+        
         // search using Apple Map
         let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = "pizza"
+        request.naturalLanguageQuery = keyWord
         request.region = region
         let search = MKLocalSearch(request: request)
         search.start { (response, error) in
@@ -60,13 +62,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         }
         
         // search using Yelp API
-        yelpAPIClient.searchBusinesses(byTerm: "pizza", location: nil, latitude: 42.0557, longitude: -87.6743, radius: nil, categories: nil, locale: nil, limit: nil, offset: nil, sortBy: nil, priceTiers: nil, openNow: nil, openAt: nil, attributes: nil) { (response) in
+        yelpAPIClient.searchBusinesses(byTerm: keyWord, location: nil, latitude: 42.0557, longitude: -87.6743, radius: nil, categories: nil, locale: nil, limit: nil, offset: nil, sortBy: nil, priceTiers: nil, openNow: nil, openAt: nil, attributes: nil) { (response) in
             if let response = response,
                 let businesses = response.businesses,
                 businesses.count > 0 {
                 print(businesses)
                 for item in businesses{
-                    _ = MKPointAnnotation()
                     let latitude = item.coordinates?.latitude
                     let longitude = item.coordinates?.longitude
                     let coordinate = CLLocationCoordinate2D (latitude: latitude!, longitude: longitude!)
@@ -80,8 +81,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                 }
             }
         }
+        
+        yelpAPIClient.autocompleteBusinesses(byText: "pizza", latitude: 42.0557, longitude: -87.6743, locale: nil) { (response) in
+            if let response = response,
+                let businesses = response.businesses,
+                businesses.count > 0 {
+                print(businesses)
+                for item in businesses{
+                    
+                }
+            }
+        }
     }
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
@@ -96,10 +107,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         }
         return pinView
     }
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         for mapItem in mapItems {
-            if mapItem.placemark.coordinate.latitude == view.annotation?.coordinate.latitude &&
-                mapItem.placemark.coordinate.longitude == view.annotation?.coordinate.longitude {
+            if mapItem.placemark.coordinate.latitude == view.annotation?.coordinate.latitude && mapItem.placemark.coordinate.longitude == view.annotation?.coordinate.longitude {
                 selectedMapItem = mapItem
             }
         }
@@ -112,4 +123,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         performSegue(withIdentifier: "ShowLocationDetailsSegue", sender: nil)
     }
+    
 }
+

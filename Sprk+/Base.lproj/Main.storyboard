@@ -71,6 +71,7 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="X7G-36-XPU" id="tRj-6y-HTv"/>
+                        <segue destination="tRv-ld-lQ5" kind="show" identifier="ShowLocationDetailsSegue" id="su8-SN-yd7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
