@@ -11,13 +11,14 @@ import MapKit
 
 class DestinationDetailsViewController: UIViewController {
     
-    var selectedMapItem = MKMapItem()
+    var infoDictionary = [String: Any]()
+    var mapItem = MKMapItem()
     override func viewDidLoad() {
         super.viewDidLoad()
-        var address = selectedMapItem.placemark.subThoroughfare! + " "
-        address += selectedMapItem.placemark.thoroughfare! + "\n"
-        address += selectedMapItem.placemark.locality! + ", "
-        address += selectedMapItem.placemark.administrativeArea! + " "
-        address += selectedMapItem.placemark.postalCode!
+        for (category, value) in infoDictionary {
+            print (category, ": ", value)   // have fun use it in storyboard
+        }
+        print ("")
     }
 }
+

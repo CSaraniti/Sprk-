@@ -20,6 +20,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     var selectedMapItem = MKMapItem()
     var yelpAPIClient = CDYelpAPIClient(apiKey: "Eyyj7cp9X622nkhFQvhJiJRP_h26M-JANYmm87SIWYsr-uKJG8hDxsxGKksxTE3s0GZW209md3OhFQ372NbV4ERuq-C1THUSys_9TipBBLERLWybn59t2Ggt00UqXXYx")
     var keyWord = ""
+    var mapInfo = [MKMapItem: [String: Any]]()   //Use to store properties of mapItem. [MapItem [category: value]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +29,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
         mapView.delegate = self
-        
     }
-    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.first!
@@ -42,7 +41,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         
-        keyWord = "pizza"   //entry for searching with key words
+        keyWord = "pizza"   //entry for searching with keywords
         
         // search using Apple Map
         let request = MKLocalSearch.Request()
@@ -54,9 +53,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                 for mapItem in response.mapItems {
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = mapItem.placemark.coordinate
-                    annotation.title = mapItem.name! + "Apple Map"
+                    annotation.title = "Apple Map" + mapItem.name!
                     self.mapView.addAnnotation(annotation)
                     self.mapItems.append(mapItem)
+                    var infoDictionary = [String: Any]()
+                    infoDictionary["name"] = mapItem.name
+                    infoDictionary["phoneNumber"] = mapItem.phoneNumber
+                    infoDictionary["address"] = mapItem.placemark.subThoroughfare! + " " + mapItem.placemark.thoroughfare! + "\n" + mapItem.placemark.locality! + ", " + mapItem.placemark.administrativeArea! + " " + mapItem.placemark.postalCode!
+                    infoDictionary["url"] = mapItem.url
+                    self.mapInfo[mapItem] = infoDictionary
                 }
             }
         }
@@ -66,33 +71,46 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             if let response = response,
                 let businesses = response.businesses,
                 businesses.count > 0 {
-                print(businesses)
                 for item in businesses{
                     let latitude = item.coordinates?.latitude
                     let longitude = item.coordinates?.longitude
                     let coordinate = CLLocationCoordinate2D (latitude: latitude!, longitude: longitude!)
                     let mPlacemark = MKPlacemark(coordinate: coordinate)
-                    let mItem = MKMapItem(placemark: mPlacemark)
+                    let mapItem = MKMapItem(placemark: mPlacemark)
                     let annotation2 = MKPointAnnotation()
-                    annotation2.coordinate = mItem.placemark.coordinate
-                    annotation2.title = item.name! + "Yelp"
+                    annotation2.coordinate = mapItem.placemark.coordinate
+                    annotation2.title = "Yelp" + item.name!
                     self.mapView.addAnnotation(annotation2)
-                    self.mapItems.append(mItem)
+                    self.mapItems.append(mapItem)
+
+                    var infoDictionary = [String: Any]()
+                    infoDictionary["name"] = item.name
+                    infoDictionary["phoneNumber"] = item.phone
+                    infoDictionary["rating"] = item.rating
+                    infoDictionary["id"] = item.id
+                    infoDictionary["url"] = item.url
+                    infoDictionary["address"] = ("\(item.location?.addressOne)), \(item.location?.city), \(item.location?.state)  \(item.location?.zipCode)")
+                    infoDictionary["image_url"] = item.imageUrl
+                    infoDictionary["isClosed"] = item.isClosed
+                    infoDictionary["distance"] = item.distance
+                    infoDictionary["category"] = item.categories
+                    self.mapInfo[mapItem] = infoDictionary
                 }
             }
         }
         
+        //  autocomplete suggestions for searching keywords and categories, to be finished
         yelpAPIClient.autocompleteBusinesses(byText: "pizza", latitude: 42.0557, longitude: -87.6743, locale: nil) { (response) in
             if let response = response,
                 let businesses = response.businesses,
                 businesses.count > 0 {
-                print(businesses)
                 for item in businesses{
                     
                 }
             }
         }
     }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
@@ -114,10 +132,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                 selectedMapItem = mapItem
             }
         }
+        for mapItem in mapInfo.keys {
+            if mapItem.placemark.coordinate.latitude == view.annotation?.coordinate.latitude && mapItem.placemark.coordinate.longitude == view.annotation?.coordinate.longitude {
+                selectedMapItem = mapItem
+            }
+        }
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? DestinationDetailsViewController {
-            destination.selectedMapItem = selectedMapItem
+//            destination.selectedMapItem = selectedMapItem
+            var infoDictionary = [String: Any]()
+            infoDictionary = mapInfo[selectedMapItem]!
+            destination.infoDictionary = infoDictionary
+            destination.mapItem = selectedMapItem
+            
         }
     }
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
