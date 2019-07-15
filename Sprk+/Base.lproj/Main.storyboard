@@ -125,6 +125,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Directions"/>
+                                <connections>
+                                    <action selector="onDirectionsButtonTapped:" destination="tRv-ld-lQ5" eventType="touchUpInside" id="Iwu-b3-YVP"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqL-lk-5t9">
                                 <rect key="frame" x="132" y="367" width="150" height="45"/>
@@ -134,6 +137,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Website"/>
+                                <connections>
+                                    <action selector="onWebsiteButtonTapped:" destination="tRv-ld-lQ5" eventType="touchUpInside" id="M0m-2i-JPd"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -157,8 +163,6 @@
                     <connections>
                         <outlet property="addressLabel" destination="RUH-YS-51U" id="Nu9-CW-dLN"/>
                         <outlet property="nameLabel" destination="sG1-8A-dSi" id="0He-Rp-3sj"/>
-                        <outlet property="onDirectionButtonPressed" destination="0HV-E7-Is9" id="Fea-gB-Sdq"/>
-                        <outlet property="onWebsiteButtonTapped" destination="DqL-lk-5t9" id="AhD-9A-9H2"/>
                         <outlet property="phoneNumberLabel" destination="Vbj-uW-IMl" id="M3L-Ra-1ay"/>
                     </connections>
                 </viewController>

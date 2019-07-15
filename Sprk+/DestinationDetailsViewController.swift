@@ -13,9 +13,7 @@ class DestinationDetailsViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var phoneNumberLabel: UILabel!
-    @IBOutlet weak var onDirectionButtonPressed: UIButton!
-    @IBOutlet weak var onWebsiteButtonTapped: UIButton!
-    
+
     var infoDictionary = [String: Any]()    //  collection of info of a location
     var mapItem = MKMapItem()
     
@@ -30,6 +28,10 @@ class DestinationDetailsViewController: UIViewController {
         nameLabel.text = infoDictionary["name"] as? String
         addressLabel.text = infoDictionary["address"] as? String
         phoneNumberLabel.text = infoDictionary["phoneNumber"] as? String
+    }
+    @IBAction func onDirectionsButtonTapped(_ sender: Any) {
+    }
+    @IBAction func onWebsiteButtonTapped(_ sender: Any) {
     }
     
 }
