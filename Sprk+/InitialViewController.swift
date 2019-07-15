@@ -2,8 +2,8 @@
 //  InitialViewController.swift
 //  Sprk+
 //
-//  Created by Carlo Saraniti on 7/12/19.
-//  Copyright © 2019 Carlo Saraniti. All rights reserved.
+//  Created by Carlo Saraniti, Hanu Snyder, and Yifei Yao on 7/12/19.
+//  Copyright © 2019 Carlo Saraniti, Hanu Snyder, and Yifei Yao. All rights reserved.
 //
 
 import UIKit
