@@ -26,6 +26,11 @@ class DestinationDetailsViewController: UIViewController {
         }
         print ("")
     }
+    override func viewWillAppear(_ animated: Bool) {
+        nameLabel.text = infoDictionary["name"] as? String
+        addressLabel.text = infoDictionary["address"] as? String
+        phoneNumberLabel.text = infoDictionary["phoneNumber"] as? String
+    }
     
 }
 
