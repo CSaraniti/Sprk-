@@ -50,6 +50,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
         keyWord = input   //entry for searching with keywords. Work for both name and some categories. "restaurant", "pizza", "breakfast", "mcdonald", etc.
         
+        print (keyWord)
         
         // search using Yelp API
         yelpAPIClient.searchBusinesses(byTerm: keyWord, location: nil, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, radius: nil, categories: nil, locale: nil, limit: nil, offset: nil, sortBy: nil, priceTiers: nil, openNow: nil, openAt: nil, attributes: nil) { (response) in

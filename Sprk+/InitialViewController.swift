@@ -36,6 +36,7 @@ class InitialViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBAction func goButton(_ sender: UIButton) {
         input = pickerData[picker.selectedRow(inComponent: 0)]
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let dvc = segue.destination as! ViewController
         dvc.input = input

@@ -35,6 +35,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
+                                    <action selector="goButton:" destination="05J-Dn-5Vr" eventType="touchUpInside" id="NK3-PC-jB2"/>
                                     <segue destination="BYZ-38-t0r" kind="show" id="ugI-M4-AtO"/>
                                 </connections>
                             </button>
