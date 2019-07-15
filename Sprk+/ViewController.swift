@@ -21,6 +21,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     var region = MKCoordinateRegion()
     let locationManager = CLLocationManager()
     var selectedMapItem = MKMapItem()
+    var input = String()
     var yelpAPIClient = CDYelpAPIClient(apiKey: "Eyyj7cp9X622nkhFQvhJiJRP_h26M-JANYmm87SIWYsr-uKJG8hDxsxGKksxTE3s0GZW209md3OhFQ372NbV4ERuq-C1THUSys_9TipBBLERLWybn59t2Ggt00UqXXYx")
     var keyWord = ""
     var mapInfo = [MKMapItem: [String: Any]]()   // to store properties of mapItem, dictionaries in a dictionary. [MapItem: [category: value]]
@@ -45,7 +46,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         
         
-        keyWord = "dinner"   //entry for searching with keywords. Work for both name and some categories. "restaurant", "pizza", "breakfast", "mcdonald", etc.
+        keyWord = input   //entry for searching with keywords. Work for both name and some categories. "restaurant", "pizza", "breakfast", "mcdonald", etc.
         
         
         // search using Yelp API

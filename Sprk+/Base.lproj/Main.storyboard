@@ -43,6 +43,9 @@
                         <viewLayoutGuide key="safeArea" id="cY7-l8-PrN"/>
                     </view>
                     <navigationItem key="navigationItem" id="KYS-q4-UTm"/>
+                    <connections>
+                        <outlet property="picker" destination="k00-wu-CQg" id="GUI-44-QyQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zS5-qe-gJH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
