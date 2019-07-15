@@ -14,6 +14,9 @@ import Foundation
 
 class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
+    
+    // some comments
+    
     @IBOutlet weak var mapView: MKMapView!
     var region = MKCoordinateRegion()
     let locationManager = CLLocationManager()
