@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import SafariServices
 
 class DestinationDetailsViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
@@ -16,6 +17,7 @@ class DestinationDetailsViewController: UIViewController {
 
     var infoDictionary = [String: Any]()    //  collection of info of a location
     var mapItem = MKMapItem()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +32,12 @@ class DestinationDetailsViewController: UIViewController {
         phoneNumberLabel.text = infoDictionary["phoneNumber"] as? String
     }
     @IBAction func onDirectionsButtonTapped(_ sender: Any) {
+        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
+        MKMapItem.openMaps(with: [mapItem], launchOptions: launchOptions)
     }
     @IBAction func onWebsiteButtonTapped(_ sender: Any) {
+        if let url = mapItem.url {
+            present(SFSafariViewController(url: url), animated: true)
+        }
     }
-    
 }
-
