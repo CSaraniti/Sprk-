@@ -25,15 +25,12 @@ class DestinationDetailsViewController: UIViewController {
             print (category, ": ", value)   //  have fun using it in storyboard
         }
         print ("")
+        print(infoDictionary["address"])
     }
+
     override func viewWillAppear(_ animated: Bool) {
         nameLabel.text = infoDictionary["name"] as? String
-        var address = mapItem.placemark.subThoroughfare! + " "
-        address += mapItem.placemark.thoroughfare! + "\n"
-        address += mapItem.placemark.locality! + ", "
-        address += mapItem.placemark.administrativeArea! + " "
-        address += mapItem.placemark.postalCode!
-        addressLabel.text = address
+        addressLabel.text = infoDictionary["address"] as? String
         phoneNumberLabel.text = infoDictionary["phoneNumber"] as? String
     }
     
