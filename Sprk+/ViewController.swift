@@ -14,9 +14,6 @@ import Foundation
 
 class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UISearchBarDelegate {
     
-    
-    // some comments
-    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var mapView: MKMapView!
     var region = MKCoordinateRegion()
@@ -45,6 +42,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
 
     func reload(input: String){
         self.mapView.removeAnnotations(self.mapView.annotations)
+        mapInfo = [MKMapItem: [String: Any]]()
+        loadMap(input: input)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -55,9 +54,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         mapView.setRegion(region, animated: true)
     }
     
-    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        
-        
+
+    
+    func loadMap(input: String) {
         keyWord = input   //entry for searching with keywords. Work for both name and some categories. "restaurant", "pizza", "breakfast", "mcdonald", etc.
         
         print (keyWord)
@@ -95,7 +94,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             }
         }
         
-
+        
         // search using Apple Map
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = keyWord
@@ -132,7 +131,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                     infoDictionary["address"] = mapItem.placemark.subThoroughfare! + " " + mapItem.placemark.thoroughfare! + "\n" + mapItem.placemark.locality! + ", " + mapItem.placemark.administrativeArea! + " " + mapItem.placemark.postalCode!
                     infoDictionary["url"] = mapItem.url
                     infoDictionary["isFromYelp"] = false
-
+                    
                     self.mapInfo[mapItem] = infoDictionary
                 }
             }
@@ -150,6 +149,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                 }
             }
         }
+        
+    }
+    
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        loadMap(input: input)
+        
+        
     }
     
     // to calculate distance between two coordinates
