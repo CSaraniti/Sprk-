@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bZt-eE-UDy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="j0e-bJ-MSh">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Initial View Controller-->
+        <!--Go-->
         <scene sceneID="D9i-iE-XcO">
             <objects>
                 <viewController id="05J-Dn-5Vr" customClass="InitialViewController" customModule="Sprk_" customModuleProvider="target" sceneMemberID="viewController">
@@ -43,6 +43,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="cY7-l8-PrN"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Go" id="g7Y-ap-a98"/>
                     <navigationItem key="navigationItem" id="KYS-q4-UTm"/>
                     <connections>
                         <outlet property="picker" destination="k00-wu-CQg" id="GUI-44-QyQ"/>
@@ -52,7 +53,7 @@
             </objects>
             <point key="canvasLocation" x="2065.217391304348" y="132.58928571428572"/>
         </scene>
-        <!--View Controller-->
+        <!--Map-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Sprk_" customModuleProvider="target" sceneMemberID="viewController">
@@ -60,21 +61,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="X7G-36-XPU">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="X7G-36-XPU">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="813" id="8v9-L8-TRa"/>
+                                    <constraint firstAttribute="width" constant="414" id="zWg-DV-Wm8"/>
+                                </constraints>
                             </mapView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="3EN-3I-GUG">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="X7G-36-XPU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JzD-oi-QYh"/>
-                            <constraint firstItem="X7G-36-XPU" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="KMd-fd-wgO"/>
-                            <constraint firstAttribute="bottom" secondItem="X7G-36-XPU" secondAttribute="bottom" id="Kbd-GO-0eL"/>
-                            <constraint firstItem="X7G-36-XPU" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="YLX-0D-kxO"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Map" id="Ba8-Xf-qBn"/>
                     <connections>
                         <outlet property="mapView" destination="X7G-36-XPU" id="tRj-6y-HTv"/>
+                        <outlet property="searchBar" destination="3EN-3I-GUG" id="jd9-4v-MMF"/>
                         <segue destination="tRv-ld-lQ5" kind="show" identifier="ShowLocationDetailsSegue" id="su8-SN-yd7"/>
                     </connections>
                 </viewController>
@@ -82,7 +88,7 @@
             </objects>
             <point key="canvasLocation" x="2862.3188405797105" y="132.58928571428572"/>
         </scene>
-        <!--Destination Details View Controller-->
+        <!--Item-->
         <scene sceneID="fId-k9-1KV">
             <objects>
                 <viewController id="tRv-ld-lQ5" customClass="DestinationDetailsViewController" customModule="Sprk_" customModuleProvider="target" sceneMemberID="viewController">
@@ -91,7 +97,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sG1-8A-dSi">
-                                <rect key="frame" x="107" y="135" width="200" height="25"/>
+                                <rect key="frame" x="107" y="91" width="200" height="69"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="CXq-Lg-VIp"/>
                                 </constraints>
@@ -160,6 +166,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hja-A4-0u7"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="ZvF-Tp-snF"/>
                     <connections>
                         <outlet property="addressLabel" destination="RUH-YS-51U" id="Nu9-CW-dLN"/>
                         <outlet property="nameLabel" destination="sG1-8A-dSi" id="0He-Rp-3sj"/>
@@ -170,26 +177,46 @@
             </objects>
             <point key="canvasLocation" x="3600.0000000000005" y="132.58928571428572"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="EHS-2a-rWS">
+        <!--Search-->
+        <scene sceneID="7PD-c2-Pqe">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bZt-eE-UDy" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3uv-e1-cfw">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="05J-Dn-5Vr" kind="relationship" relationship="rootViewController" id="hqz-mq-TO1"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="trj-f3-tpz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="4r0-Zc-cuI" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="woW-sg-thg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="DNg-bh-N3C"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Search" id="WcC-I6-rt3"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w7r-Tm-0Kc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1155.072463768116" y="132.58928571428572"/>
+            <point key="canvasLocation" x="4361" y="133"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="iSQ-xE-PKX">
+            <objects>
+                <tabBarController id="j0e-bJ-MSh" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1pw-da-Qk9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="05J-Dn-5Vr" kind="relationship" relationship="viewControllers" id="EvH-K5-7Dd"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="kr2-fN-qnQ"/>
+                        <segue destination="4r0-Zc-cuI" kind="relationship" relationship="viewControllers" id="etV-Oy-xZL"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fLO-Ms-XAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2862" y="-650"/>
         </scene>
     </scenes>
     <resources>
         <image name="Asset 3" width="153" height="84"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="kr2-fN-qnQ"/>
+    </inferredMetricsTieBreakers>
 </document>

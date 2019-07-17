@@ -12,11 +12,12 @@ import CoreLocation
 import CDYelpFusionKit  //import Yelp API Client
 import Foundation
 
-class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UISearchBarDelegate {
     
     
     // some comments
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var mapView: MKMapView!
     var region = MKCoordinateRegion()
     let locationManager = CLLocationManager()
@@ -36,6 +37,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         locationManager.delegate = self
         mapView.delegate = self
     }
+    
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        reload()
+//    }
+//    
+//    func reload(){
+//        mapView.removeAnnotations(self.mapView.annotations)
+//        
+//    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.first!
