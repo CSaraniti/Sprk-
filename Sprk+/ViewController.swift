@@ -36,16 +36,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
         mapView.delegate = self
+        searchBar.delegate = self
     }
     
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        reload()
-//    }
-//    
-//    func reload(){
-//        mapView.removeAnnotations(self.mapView.annotations)
-//        
-//    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        reload(input: self.searchBar.text!)
+    }
+
+    func reload(input: String){
+        self.mapView.removeAnnotations(self.mapView.annotations)
+    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.first!
