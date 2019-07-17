@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Go-->
+        <!--Initial View Controller-->
         <scene sceneID="D9i-iE-XcO">
             <objects>
                 <viewController id="05J-Dn-5Vr" customClass="InitialViewController" customModule="Sprk_" customModuleProvider="target" sceneMemberID="viewController">
@@ -36,22 +36,21 @@
                                 </state>
                                 <connections>
                                     <action selector="goButton:" destination="05J-Dn-5Vr" eventType="touchUpInside" id="NK3-PC-jB2"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="ugI-M4-AtO"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="cY7-l8-PrN"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Go" id="g7Y-ap-a98"/>
                     <navigationItem key="navigationItem" id="KYS-q4-UTm"/>
                     <connections>
                         <outlet property="picker" destination="k00-wu-CQg" id="GUI-44-QyQ"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="showMap" id="zHn-Po-NVE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zS5-qe-gJH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2065.217391304348" y="132.58928571428572"/>
+            <point key="canvasLocation" x="2975.36231884058" y="132.58928571428572"/>
         </scene>
         <!--Map-->
         <scene sceneID="tne-QT-ifu">
@@ -93,7 +92,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2862.3188405797105" y="132.58928571428572"/>
+            <point key="canvasLocation" x="3772.4637681159425" y="132.58928571428572"/>
         </scene>
         <!--Item-->
         <scene sceneID="fId-k9-1KV">
@@ -103,7 +102,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sG1-8A-dSi">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sG1-8A-dSi">
                                 <rect key="frame" x="107" y="91" width="200" height="69"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="CXq-Lg-VIp"/>
@@ -112,7 +111,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUH-YS-51U">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUH-YS-51U">
                                 <rect key="frame" x="107" y="168" width="200" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="7tG-ez-KFp"/>
@@ -122,7 +121,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbj-uW-IMl">
-                                <rect key="frame" x="107" y="241" width="200" height="65"/>
+                                <rect key="frame" x="107" y="192" width="200" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="Geq-n5-V2U"/>
                                 </constraints>
@@ -131,7 +130,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0HV-E7-Is9">
-                                <rect key="frame" x="132" y="314" width="150" height="45"/>
+                                <rect key="frame" x="132" y="265" width="150" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="1m8-fJ-RMO"/>
                                     <constraint firstAttribute="height" constant="45" id="wDp-uw-haX"/>
@@ -143,7 +142,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqL-lk-5t9">
-                                <rect key="frame" x="132" y="367" width="150" height="45"/>
+                                <rect key="frame" x="132" y="318" width="150" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="F4z-vE-CUG"/>
                                     <constraint firstAttribute="height" constant="45" id="e4T-MM-Ny0"/>
@@ -182,7 +181,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fg8-by-PVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3600.0000000000005" y="132.58928571428572"/>
+            <point key="canvasLocation" x="4510.144927536232" y="132.58928571428572"/>
         </scene>
         <!--Search-->
         <scene sceneID="7PD-c2-Pqe">
@@ -198,7 +197,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7r-Tm-0Kc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4361" y="133"/>
+            <point key="canvasLocation" x="5271.0144927536239" y="132.58928571428572"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="iSQ-xE-PKX">
@@ -210,7 +209,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="05J-Dn-5Vr" kind="relationship" relationship="viewControllers" id="EvH-K5-7Dd"/>
+                        <segue destination="wIF-TG-Am0" kind="relationship" relationship="viewControllers" id="EvH-K5-7Dd"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="kr2-fN-qnQ"/>
                         <segue destination="4r0-Zc-cuI" kind="relationship" relationship="viewControllers" id="etV-Oy-xZL"/>
                     </connections>
@@ -219,11 +218,30 @@
             </objects>
             <point key="canvasLocation" x="2862" y="-650"/>
         </scene>
+        <!--Go-->
+        <scene sceneID="cAj-jL-nE9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wIF-TG-Am0" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Go" id="g7Y-ap-a98"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aud-eY-1hT">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="05J-Dn-5Vr" kind="relationship" relationship="rootViewController" id="SFP-vo-WMY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1JO-DA-vFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2065.217391304348" y="132.58928571428572"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Asset 3" width="153" height="84"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kr2-fN-qnQ"/>
+        <segue reference="zHn-Po-NVE"/>
     </inferredMetricsTieBreakers>
 </document>
