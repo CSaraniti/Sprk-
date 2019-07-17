@@ -61,20 +61,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="X7G-36-XPU">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="X7G-36-XPU">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="813" id="8v9-L8-TRa"/>
                                     <constraint firstAttribute="width" constant="414" id="zWg-DV-Wm8"/>
                                 </constraints>
                             </mapView>
-                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="3EN-3I-GUG">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="3EN-3I-GUG">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3EN-3I-GUG" secondAttribute="bottom" constant="725" id="40V-cu-nK2"/>
+                            <constraint firstItem="X7G-36-XPU" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="NPX-oV-hiv"/>
+                            <constraint firstItem="X7G-36-XPU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="W6U-ru-I8J"/>
+                            <constraint firstItem="X7G-36-XPU" firstAttribute="trailing" secondItem="3EN-3I-GUG" secondAttribute="trailing" id="YpA-MO-LdG"/>
+                            <constraint firstItem="3EN-3I-GUG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oBK-xQ-iZh"/>
+                            <constraint firstItem="X7G-36-XPU" firstAttribute="leading" secondItem="3EN-3I-GUG" secondAttribute="leading" id="tvl-W1-UcX"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" id="Ba8-Xf-qBn"/>
