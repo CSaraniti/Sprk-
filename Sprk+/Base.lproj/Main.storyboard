@@ -73,14 +73,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="X7G-36-XPU">
-                                <rect key="frame" x="0.0" y="49" width="414" height="813"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="813" id="8v9-L8-TRa"/>
                                     <constraint firstAttribute="width" constant="414" id="zWg-DV-Wm8"/>
                                 </constraints>
                             </mapView>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="3EN-3I-GUG">
-                                <rect key="frame" x="0.0" y="44" width="414" height="93"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
@@ -95,7 +95,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" id="Ba8-Xf-qBn"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="Map" id="Ba8-Xf-qBn"/>
                     <connections>
                         <outlet property="mapView" destination="X7G-36-XPU" id="tRj-6y-HTv"/>
                         <outlet property="searchBar" destination="3EN-3I-GUG" id="jd9-4v-MMF"/>
@@ -206,7 +206,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="DNg-bh-N3C"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" id="WcC-I6-rt3"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Search" id="WcC-I6-rt3"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7r-Tm-0Kc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -236,6 +236,6 @@
         <image name="Asset 3" width="153" height="84"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ugI-M4-AtO"/>
+        <segue reference="kr2-fN-qnQ"/>
     </inferredMetricsTieBreakers>
 </document>

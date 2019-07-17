@@ -35,10 +35,11 @@ class InitialViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
  
     @IBAction func goButton(_ sender: UIButton) {
         input = pickerData[picker.selectedRow(inComponent: 0)]
-        performSegue(withIdentifier: "showMap", sender: nil)
+        self.tabBarController?.selectedIndex = 1
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //        let nextVC = storyboard.instantiateViewController(withIdentifier: "Map")
 //        self.present(nextVC, animated: true, completion: nil)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
