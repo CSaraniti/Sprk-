@@ -17,7 +17,7 @@ class InitialViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         super.viewDidLoad()
         self.picker.delegate = self
         self.picker.dataSource = self
-        pickerData = ["Restaurants", "Breakfast & Brunch", "Coffee & Tea"]
+        pickerData = ["Breakfast", "Lunch", "Dinner"]
 
     }
     
